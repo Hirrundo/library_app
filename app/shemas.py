@@ -4,6 +4,7 @@ from typing import List, Optional
 from pydantic import BaseModel, field_validator
 from enum import Enum
 
+
 class Book(BaseModel):
     id: int
     title: str
@@ -20,7 +21,7 @@ class BookDetial(BaseModel):
     reader_name:Optional[str]
 
 class Reader(BaseModel):
-    id: str
+    id: int
     fullName: str
     email: str
     phone: str
