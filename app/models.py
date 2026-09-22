@@ -1,6 +1,7 @@
+from dataclasses import Field
 from datetime import date
 
-from sqlalchemy import Boolean, Column, Date, DateTime, ForeignKey, Integer, String, create_engine, func
+from sqlalchemy import Boolean, Column, Date, DateTime, Enum, ForeignKey, Integer, String, create_engine, func
 from sqlalchemy.orm import declarative_base, relationship
 
 
@@ -38,6 +39,22 @@ class ReaderBooks(Base):
      returned_at=Column(String)
 
      readerB=relationship('Reader', back_populates='reader')
+
+class User(Base):
+    __tablename__='user'
+    id=Column(Integer,autoincrement=True,primary_key=True)
+    username=Column(String, Field(min_length=3),unique=True,nullable=False)
+    email=Column(String,unique=True,nullable=False)
+    password_hash=Column(String,nullable=False)
+    role=Column(String,Enum('admin','librarian'),nullable=False,default='librarian')
+    is_active=Column(Boolean,default=True)
+    created_at=Column(DateTime,server_default=func.now())
+    update_at=Column(DateTime,onupdate=func.now())
+
+
 Base.metadata.create_all(bind=engine)
+
+
+
 
 # date_object=datetime.strptime(date_string, '%d.%m.%Y')
