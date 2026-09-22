@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from typing import List
 from shemas import Book, Reader
 from data import books,readers
-
+from auth_routes import router
 app = FastAPI()
 
 @app.get('/books',response_model=List[Book])
